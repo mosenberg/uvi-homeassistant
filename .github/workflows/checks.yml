@@ -1,0 +1,30 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Check publishable files and history
+        run: python scripts/check_publication.py --history
+      - name: Run offline regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile Python sources
+        run: python -m compileall -q custom_components scripts tests

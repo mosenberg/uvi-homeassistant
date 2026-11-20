@@ -1,0 +1,38 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Credentials, portal captures, consumption exports and local diagnostics
+.env
+.env.*
+!.env.example
+secrets.*
+credentials.*
+*.pem
+*.key
+*.har
+*.log
+*.csv
+/analysis/
+/trace/
+/exports/
+/initial.txt
+/export*.json
+/.storage/
+
+# Generated archives and machine-specific files
+*.zip
+/dist/
+/build/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

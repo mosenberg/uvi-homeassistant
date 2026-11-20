@@ -1,0 +1,12 @@
+om 4 {
+  {Form 1 {{name "synthetic_consumption"}} {
+    {FormField 3 {{value "Februar 2026"}} {}}
+    {FormField 85 {{value "123,000"}} {}}
+    {FormField 65 {{value "58,150"}} {}}
+    {FormField 605 {{value "2,500"}} {}}
+    {ComboBox 2 {} {
+      {Item 10 {{name "Februar 2026"} {text "Februar 2026"}} {}}
+      {Item 11 {{name "Januar 2026"} {text "Januar 2026"}} {}}
+    }}
+  }}
+}

@@ -1,0 +1,47 @@
+{
+  "title": "UVI Service",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect UVI Service",
+        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "data": {
+          "property_id": "Property ID",
+          "email": "Login email",
+          "password": "Password",
+          "launch_token": "Launch token"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Update UVI credentials",
+        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "data": {
+          "property_id": "Property ID",
+          "email": "Login email",
+          "password": "Password",
+          "launch_token": "Launch token"
+        }
+      },
+      "reconfigure": {
+        "title": "Update UVI credentials",
+        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "data": {
+          "property_id": "Property ID",
+          "email": "Login email",
+          "password": "Password",
+          "launch_token": "Launch token"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Login failed. Check your credentials and launch token.",
+      "cannot_connect": "Cannot reach UVI Service or the portal protocol has changed.",
+      "account_mismatch": "Use the same property and email as this integration entry."
+    },
+    "abort": {
+      "already_configured": "This account is already configured.",
+      "reauth_successful": "Credentials updated.",
+      "reconfigure_successful": "Configuration updated."
+    }
+  }
+}
