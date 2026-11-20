@@ -108,21 +108,16 @@ still need verification in a running Home Assistant instance.
 
 ## Publication and privacy
 
-The Git remote is `https://github.com/mosenberg/uvi-homeassistant.git`; the local
-publication branch is `main`. After reviewing and committing the prepared files,
-run the checks above and publish with:
+The Git remote is `https://github.com/mosenberg/uvi-homeassistant.git` and the
+publication branch is `main`. After reviewing and committing changes, run the
+checks above and push with:
 
 ```sh
 git push --set-upstream origin main
 ```
 
-The initial push requires no force option. The remote already has an initial MIT
-license commit on `master`; `main` deliberately has independent, sanitized
-history. After publishing, select `main` as the default branch on GitHub. The
-old `master` license notice contains the owner's full name; review whether to
-retain that branch before making the repository public.
-
-GitHub visibility is managed separately; HACS requires a public repository. Do not include local captures,
+GitHub visibility is managed separately; HACS requires a public repository.
+Do not include local captures,
 consumption exports, credentials, logs, generated ZIPs or Python caches in commits.
 The `.gitignore` rules exclude common private artifacts, and the publication
 check inspects working files, the staged snapshot and all local Git refs when
