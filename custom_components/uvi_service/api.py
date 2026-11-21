@@ -110,7 +110,8 @@ class UviApi:
     async def fetch(self):
         args = [("Arg", base64.b64encode(self.credentials[key].encode()).decode())
                 for key in ("property_id", "email")]
-        args.append(("djxkaiemglvvihukvsobuyiyby", self.credentials["launch_token"]))
+        if token := self.credentials.get("launch_token"):
+            args.append(("djxkaiemglvvihukvsobuyiyby", token))
         launch = f"{BASE}/r/vds-witter?{urlencode(args)}"
         headers = {"X-FourJs-Client": CLIENT, "X-FourJs-Client-Features": "prompt",
                    "Referer": launch, "Origin": "https://uvi-service.de"}

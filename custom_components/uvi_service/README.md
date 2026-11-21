@@ -9,8 +9,9 @@ Custom integration for the UVI heating and water portal. Requires Home Assistant
    directory at `custom_components/uvi_service`.
 2. Restart Home Assistant.
 3. Open Settings > Devices & services > Add integration > UVI Service.
-4. Enter the plain property ID, login email, password and launch token (the value
-   of `djxkaiemglvvihukvsobuyiyby` from the original portal link).
+4. Enter the plain property ID, login email and password. If the original portal
+   link includes `djxkaiemglvvihukvsobuyiyby`, enter its value as the optional
+   launch token; otherwise leave that field empty.
 
 No YAML or script installation is required. The existing command-line exporter
 continues to work independently.

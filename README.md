@@ -28,8 +28,9 @@ Requires Home Assistant **2026.3 or newer** and a working UVI portal account.
    Home Assistant configuration directory at `custom_components/uvi_service`.
 2. Restart Home Assistant.
 3. Open **Settings > Devices & services > Add integration > UVI Service**.
-4. Enter your property ID, login email, password and launch token. The token is
-   the value of `djxkaiemglvvihukvsobuyiyby` in the original UVI portal link.
+4. Enter your property ID, login email and password. If the original portal link
+   includes `djxkaiemglvvihukvsobuyiyby`, enter its value as the launch token;
+   otherwise leave that field empty.
 
 ### HACS custom repository
 

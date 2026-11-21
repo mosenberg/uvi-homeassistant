@@ -6,6 +6,7 @@ import sys
 import types
 import unittest
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "custom_components" / "uvi_service"
@@ -60,6 +61,38 @@ class ProtocolTests(unittest.TestCase):
 
 
 class TransportTests(unittest.IsolatedAsyncioTestCase):
+    async def test_launch_url_without_token(self):
+        requests = []
+
+        class Response:
+            status = 403
+
+            async def __aenter__(self):
+                return self
+
+            async def __aexit__(self, *args):
+                pass
+
+        class Session(Response):
+            def __init__(self, **kwargs):
+                pass
+
+            def request(self, method, url, **kwargs):
+                requests.append(url)
+                return Response()
+
+        fake_http = types.SimpleNamespace(ClientSession=Session, ClientTimeout=lambda **kwargs: None,
+                                          ClientError=RuntimeError)
+        for token in (None, "", "example-token"):
+            credentials = dict(property_id="example", email="test@example.invalid", password="test-password")
+            if token is not None:
+                credentials["launch_token"] = token
+            with patch.object(api, "aiohttp", fake_http), self.assertRaises(api.InvalidAuth):
+                await api.UviApi(credentials).fetch()
+            query = parse_qs(urlsplit(requests[-1]).query)
+            self.assertEqual(len(query["Arg"]), 2)
+            self.assertEqual(query.get("djxkaiemglvvihukvsobuyiyby"), [token] if token else None)
+
     async def test_complete_handshake_and_first_month(self):
         login = (FIXTURES / "login-response.txt").read_text()
         replies = ["<html/>", "meta Connection {}", "om 0 {}", "om 1 {}", "om 2 {}", "om 3 {}",

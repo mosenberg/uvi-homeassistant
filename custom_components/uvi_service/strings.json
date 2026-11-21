@@ -4,32 +4,32 @@
     "step": {
       "user": {
         "title": "Connect UVI Service",
-        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "description": "Enter your portal credentials. The launch token is optional; supply it only if your UVI link contains it.",
         "data": {
           "property_id": "Property ID",
           "email": "Login email",
           "password": "Password",
-          "launch_token": "Launch token"
+          "launch_token": "Launch token (optional)"
         }
       },
       "reauth_confirm": {
         "title": "Update UVI credentials",
-        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "description": "Enter your portal credentials. Supply a launch token only if your UVI link contains it. Use the same property and email as before.",
         "data": {
           "property_id": "Property ID",
           "email": "Login email",
           "password": "Password",
-          "launch_token": "Launch token"
+          "launch_token": "Launch token (optional)"
         }
       },
       "reconfigure": {
         "title": "Update UVI credentials",
-        "description": "Enter your portal credentials and the token from your UVI link. Use the same property and email when updating credentials.",
+        "description": "Enter your portal credentials. Supply a launch token only if your UVI link contains it. Use the same property and email as before.",
         "data": {
           "property_id": "Property ID",
           "email": "Login email",
           "password": "Password",
-          "launch_token": "Launch token"
+          "launch_token": "Launch token (optional)"
         }
       }
     },

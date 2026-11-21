@@ -14,7 +14,12 @@ def schema(defaults=None):
     defaults = defaults or {}
     fields = {}
     for key in ("property_id", "email", "password", "launch_token"):
-        field = vol.Required(key, default=defaults[key]) if key in defaults and key not in ("password", "launch_token") else vol.Required(key)
+        if key == "launch_token":
+            field = vol.Optional(key)
+        elif key in defaults and key != "password":
+            field = vol.Required(key, default=defaults[key])
+        else:
+            field = vol.Required(key)
         kind = selector.TextSelectorType.PASSWORD if key in ("password", "launch_token") else selector.TextSelectorType.TEXT
         fields[field] = selector.TextSelector(selector.TextSelectorConfig(type=kind))
     return vol.Schema(fields)
@@ -43,6 +48,8 @@ class UviConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             entry = self._get_reconfigure_entry()
         errors = {}
         if user_input is not None:
+            # Explicitly clear a former token when reconfiguring without one.
+            user_input.setdefault("launch_token", "")
             identity = hashlib.sha256((user_input["property_id"] + "\0" + user_input["email"].strip().lower()).encode()).hexdigest()
             if entry and identity != entry.unique_id:
                 errors["base"] = "account_mismatch"
