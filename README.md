@@ -49,8 +49,18 @@ for credentials, refresh behavior, monthly history and troubleshooting.
 Values are totals for the latest month reported by the portal, not live meter
 readings. Hot water volume is estimated as `warmwater_kwh / 58.15`, rounded to
 0.001 m³. Each numeric sensor exposes a `monthly_history` attribute with ISO month
-dates. Sensors have no statistics state class; this version does not backfill
-Recorder statistics or supply the Energy dashboard.
+dates. Four separate external long-term statistics are imported into Recorder
+and updated with corrections. The numeric sensors still show monthly totals and
+do not pretend to be cumulative meter readings. In **Settings > Tools >
+Statistics**, search for UVI Service; these external statistics can be used in
+statistics graphs and compatible Energy dashboard selectors.
+
+UVI only supplies monthly totals. Each total is attributed to the first hour of
+its reporting month for statistics purposes, so day and hour charts do not
+represent real consumption at those times. The hot water volume is an estimate.
+Heating and hot water energy are thermal consumption; adding them as electrical
+grid use would misrepresent electricity consumption. Avoid counting the same
+water or energy twice if another source already measures it.
 
 ## Command-line exporter
 

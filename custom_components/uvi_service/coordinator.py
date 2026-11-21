@@ -9,6 +9,8 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .api import CannotConnect, InvalidAuth, UviApi
 from .const import DOMAIN
+from .statistics import import_monthly_statistics
+from .statistics_data import merge_monthly_records
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,6 +25,7 @@ class UviCoordinator(DataUpdateCoordinator):
 
     async def async_load_cache(self):
         self.months = await self.store.async_load() or {}
+        import_monthly_statistics(self.hass, self.config_entry.entry_id, self.months)
 
     async def _async_update_data(self):
         try:
@@ -33,7 +36,8 @@ class UviCoordinator(DataUpdateCoordinator):
             raise UpdateFailed("UVI service is unavailable or its protocol changed") from None
         if not rows:
             raise UpdateFailed("UVI returned no monthly data")
-        self.months.update({row["month"]: row for row in rows})
+        self.months = merge_monthly_records(self.months, rows)
         await self.store.async_save(self.months)
+        import_monthly_statistics(self.hass, self.config_entry.entry_id, self.months)
         LOGGER.debug("Updated %d monthly records", len(rows))
         return self.months[max(self.months)]

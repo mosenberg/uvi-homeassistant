@@ -1,12 +1,13 @@
 {
   "domain": "uvi_service",
   "name": "UVI Service",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "config_flow": true,
   "documentation": "https://github.com/mosenberg/uvi-homeassistant",
   "issue_tracker": "https://github.com/mosenberg/uvi-homeassistant/issues",
   "iot_class": "cloud_polling",
   "integration_type": "service",
+  "after_dependencies": ["recorder"],
   "requirements": [],
   "codeowners": ["@mosenberg"]
 }

@@ -46,12 +46,28 @@ merges these in sequence, retaining unchanged values (including zero), and reads
 the initial month directly from the full login response. Empty values remain
 unknown rather than being converted to zero.
 
-These are monthly totals, not meter readings. Sensors intentionally have no
-statistics state class. This version does not backfill Recorder statistics or
-feed the Energy dashboard. Native sensor history records when values were
-downloaded; use `monthly_history` for the actual consumption month. Historical
-statistics import requires a separate policy for representing monthly-only
-measurements without inventing daily or hourly readings.
+These are monthly totals, not meter readings. The integration imports four
+separate external long-term statistics for cold water, heating energy, hot water
+energy, and estimated hot water volume. Find them under Settings > Tools >
+Statistics and use their statistic IDs in statistics graphs and compatible
+Energy dashboard selectors. Existing sensors retain their monthly values and do
+not have a statistics state class. Native sensor history records when values
+were downloaded; it does not backfill historical sensor state changes.
+
+Recorder stores hourly data, while UVI only provides monthly totals. For each
+month the integration records its full total at the beginning of that month,
+using the first complete UTC hour after local midnight. A fixed zero baseline
+enables the first month's consumption to be counted. Monthly and yearly totals
+are meaningful, but daily and hourly displays must not be interpreted as real
+daily or hourly measurements. The import replaces its own rows on each update,
+including revised historical months, without duplicating values. Missing months
+are not synthesized; previously recorded values are retained when later portal
+responses omit them. Uninstalling the integration does not erase statistics;
+remove those manually in the Statistics interface if desired.
+
+Hot water volume is estimated from hot water energy. Heating and hot water
+energy represent thermal consumption; they are not necessarily electricity.
+Avoid counting the same consumption twice when combining sources in a dashboard.
 
 ## Troubleshooting and verification
 
